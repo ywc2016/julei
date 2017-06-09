@@ -30,8 +30,8 @@ def normalization(date_series):
     return data_norm_list
 
 
-
-loss_data_pd = pd.read_excel(u'C:/Users/Administrator/Desktop/indicators_of_customer_value_and_loss.xlsx', sheetname='Sheet1')
+loss_data_pd = pd.read_excel(u'C:/Users/Administrator/Desktop/indicators_of_customer_value_and_loss.xlsx',
+                             sheetname='Sheet1')
 # 提取流失值
 extract_data_pd = loss_data_pd[['cons_cycle', 'late_to_today']]
 # 对流失度画出分布图
@@ -46,7 +46,6 @@ data_pd = extract_data_pd[['cons_cycle', 'late_to_today']]
 plt.scatter(normalization(data_pd['late_to_today']), normalization(data_pd['cons_cycle']))
 plt.xlabel('late_to_today_by_month')
 plt.ylabel('cons_cycle')
-
 
 # 将数据做标准化处理
 data_norm_pd = pd.DataFrame(columns=['late_to_today_by_month_normde', 'cons_cycle_normed'])
@@ -73,3 +72,4 @@ plt.xlabel('late_to_today_by_month')
 plt.ylabel('cons_cycle')
 # for label,multi_group data_pd.groupby(['label']):
 
+data_pd.to_excel(u'C:/Users/Administrator/Desktop/indicators_of_customer_value_and_loss.xlsx', sheet_name='sheet2')
