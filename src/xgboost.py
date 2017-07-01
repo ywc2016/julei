@@ -7,12 +7,19 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 
 # 分出变量和标签
-dataset = pd.read_excel(u'file/indicators_of_customer_value_and_loss.xlsx',
-                        sheetname='Sheet1')
+dataset_indicator = pd.read_excel(u'file/indicators_of_customer_value_and_loss.xlsx',
+                                  sheetname='Sheet1')
+dataset_basic = pd.read_excel(u'file/member_basic_info.xlsx',
+                              sheetname='Sheet1')
 
-X = dataset[['NumOfCons', 'effective_time_days', 'average_cons_amount_per_month',
-             'average_cons_amont_per', 'average_cons_num_per_month', 'late_to_today', 'label']]
+# dataset = pd.merge(dataset_basic,dataset_indicator,on='Member')
+# dataset.to_excel(u'file/merge.xlsx', sheet_name='Sheet1')
+
+dataset = pd.read_excel(u'file/merge.xlsx',
+                        sheetname='Sheet2')
+
 Y = dataset[['label']]
+X = dataset.drop(['label'], axis=1)
 
 # 将数据分为训练集和测试集，测试集用来预测，训练集用来学习模型
 seed = 7
@@ -50,6 +57,7 @@ print("Accuracy: %.2f%%" % (accuracy * 100.0))
 
 from xgboost import plot_importance
 from matplotlib import pyplot
+
 # 和前面的代码相比，就是在 fit 后面加入两行画出特征的重要性
 
 model.fit(X, Y)
